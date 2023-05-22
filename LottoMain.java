@@ -16,14 +16,16 @@ public class LottoMain {
 			System.out.println("랜덤 로또 생성기 끌려면 3번 : ");
 
 			int num = scan.nextInt();
-			
+			LottoDAO lotto = new LottoDAO();
 			switch (num) {
 			case 1:
-				LottoDAO lotto = new LottoDAO();
-				lotto.showLottoNumber();
+				
+				lotto.generateLottoNumber();
 				System.out.println("성공적으로  추첨 로또 번호가 Mysql에 생성완료");
 			
-
+			case 2:
+				lotto.showLottoNumber();
+				System.out.println("추첨 로또 번호입니다");
 			default:
 				break;
 			}
