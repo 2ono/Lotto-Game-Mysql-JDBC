@@ -19,8 +19,10 @@ public class LottoMain {
 			LottoDAO lotto = new LottoDAO();
 			switch (num) {
 			case 1:
-				
-				lotto.generateLottoNumber();
+				System.out.println("구매할 개수 입력:  ");
+
+				int count = scan.nextInt();
+				lotto.generateLottoNumber(count);
 				System.out.println("성공적으로  추첨 로또 번호가 Mysql에 생성완료");
 			
 			case 2:
