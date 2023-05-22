@@ -6,30 +6,28 @@ import java.util.Random;
 import java.util.UUID;
 
 public class LottoDAO {
-	private int i = 1;
 
-	public void generateLottoNumber(int count) throws SQLException {
+	public void generateLottoNumber() throws SQLException {
 		try {
 			Connection c = JDBC.createC();
 			Random random = new Random();
 			// 로또 번호 랜덤 6개 + 보너스 1개 생성
 			String q = "insert into lotto(id,one,two,three,four,five,six,bonus) values(?,?,?,?,?,?,?,?);";
-			this.i++;
 			PreparedStatement pstm = c.prepareStatement(q);
 
 			// 자동커밋 비활성화
 			c.setAutoCommit(false);
 
 			String id = UUID.randomUUID().toString(); // id를 위해 랜덤 UUID 생성
-			int one = random.nextInt(10); // 0부터 99 사이의 나이를 랜덤으로 생성
-			int two = random.nextInt(10) + 10; // 0부터 99 사이의 나이를 랜덤으로 생성
-			int three = random.nextInt(10) + 20; // 0부터 99 사이의 나이를 랜덤으로 생성
-			int four = random.nextInt(10) + 30; // 0부터 99 사이의 나이를 랜덤으로 생성
-			int five = random.nextInt(7) + 38; // 0부터 99 사이의 나이를 랜덤으로 생성
-			int six = random.nextInt(3) + 42; // 0부터 99 사이의 나이를 랜덤으로 생성
-			int bonus = random.nextInt(46); // 0부터 99 사이의 나이를 랜덤으로 생성
+			int one = random.nextInt(10) + 1; // 0부터 10 사이의 나이를 랜덤으로 생성
+			int two = random.nextInt(10) + 10; // 10부터 20 사이의 나이를 랜덤으로 생성
+			int three = random.nextInt(10) + 20; // 20부터 30 사이의 나이를 랜덤으로 생성
+			int four = random.nextInt(10) + 30; // 30부터 40 사이의 나이를 랜덤으로 생성
+			int five = random.nextInt(7) + 38; // 38부터 45 사이의 나이를 랜덤으로 생성
+			int six = random.nextInt(3) + 42; // 42부터 45 사이의 나이를 랜덤으로 생성
+			int bonus = random.nextInt(46); // 0부터 45 사이의 나이를 랜덤으로 생성
 
-			for (int i = 0; i <= count; i++) { // 100개의 레코드 삽입을 가정
+//			for (int i = 1; i <= count; i++) { // 100개의 레코드 삽입을 가정
 
 				pstm.setString(1, id);
 				pstm.setInt(2, one);
@@ -40,7 +38,7 @@ public class LottoDAO {
 				pstm.setInt(7, six);
 				pstm.setInt(8, bonus);
 				pstm.addBatch();
-			}
+//			}
 			// 배치 실행
 			pstm.executeBatch();
 
@@ -67,7 +65,6 @@ public class LottoDAO {
 		java.sql.ResultSet set = stmt.executeQuery(q);
 
 		while (set.next()) {
-			int id = set.getInt(1);
 
 			int one = set.getInt(2);
 			int two = set.getInt(3);
